@@ -1,0 +1,5 @@
+
+@FunctionalInterface
+public interface Summation {
+	public void test(int a, int b);
+}

@@ -1,0 +1,9 @@
+import java.util.function.Predicate;
+
+public class MainMethod {
+
+	public static void main(String[] args) {
+		Predicate<Integer> result = new PredicateImpl();
+		result.test(2)
+	}
+}

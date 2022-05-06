@@ -1,0 +1,5 @@
+
+@FunctionalInterface
+public interface Welcome {
+	public String display();
+}
