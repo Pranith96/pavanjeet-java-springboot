@@ -1,8 +1,0 @@
-
-public class MainMethod {
-
-	public static void main(String[] args) {
-		AdditionImpl additionImpl = new AdditionImpl();
-		additionImpl.add(5, 5);
-	}
-}
