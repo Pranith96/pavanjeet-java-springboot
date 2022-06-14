@@ -22,7 +22,8 @@ public class Student {
 	private String emailId;
 	@Column(name = "login_id", unique = true)
 	private String longId;
-	@Column(name = "password")
+	//@NotNull
+	@Column(name = "password")//nullable=false
 	private String password;
 
 	public Integer getStudentId() {
