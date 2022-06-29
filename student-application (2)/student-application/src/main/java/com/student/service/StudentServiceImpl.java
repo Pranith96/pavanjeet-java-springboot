@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.student.dto.StudentDto;
 import com.student.dto.StudentRequest;
 import com.student.entity.Student;
+import com.student.exceptions.StudentNotFoundException;
 import com.student.repository.StudentRepository;
 
 @Service
@@ -33,7 +34,7 @@ public class StudentServiceImpl implements StudentService {
 	public List<Student> getStudents() {
 		List<Student> result = studentRepository.findAll();
 		if (result.isEmpty() || result == null) {
-			throw new RuntimeException("Data is Empty");
+			throw new StudentNotFoundException("Data is Empty");
 		}
 		return result;
 	}
@@ -41,10 +42,10 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public StudentDto getStudentById(Integer studentId) {
 		Optional<Student> response = studentRepository.findById(studentId);
+		
 		if (!response.isPresent()) {
-			throw new RuntimeException("Data is not found");
+			throw new StudentNotFoundException("Data is not found");
 		}
-
 		StudentDto studentResponse = new StudentDto();
 		studentResponse.setStudentId(response.get().getStudentId());
 		studentResponse.setName(response.get().getName());
@@ -58,7 +59,7 @@ public class StudentServiceImpl implements StudentService {
 		// Optional<List<Student>> response = studentRepository.findByName(name);
 		Optional<List<Student>> response = studentRepository.getByName(name);
 		if (!response.isPresent()) {
-			throw new RuntimeException("Data is not found");
+			throw new StudentNotFoundException("Data is not found");
 		}
 		return response.get();
 	}
@@ -67,7 +68,7 @@ public class StudentServiceImpl implements StudentService {
 	public Student getStudentDetails(String longId, String password) {
 		Optional<Student> response = studentRepository.findByLongIdAndPassword(longId, password);
 		if (!response.isPresent()) {
-			throw new RuntimeException("Data is not found");
+			throw new StudentNotFoundException("Data is not found");
 		}
 		return response.get();
 	}
@@ -92,7 +93,7 @@ public class StudentServiceImpl implements StudentService {
 	public String deleteStudentById(Integer studentId) {
 		Optional<Student> response = studentRepository.findById(studentId);
 		if (!response.isPresent()) {
-			throw new RuntimeException("details not found");
+			throw new StudentNotFoundException("details not found");
 		}
 		// studentRepository.deleteById(studentId);
 		studentRepository.delete(response.get());
