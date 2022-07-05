@@ -6,7 +6,6 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +15,10 @@ import com.student.entity.Student;
 import com.student.exceptions.StudentNotFoundException;
 import com.student.repository.StudentRepository;
 
-//@Primary
-@Service(value = "student-service-1")
+@Service(value ="student-service-2")
 @Transactional
 @Profile(value = { "local", "dev", "qa", "prod" })
-public class StudentServiceImpl implements StudentService {
+public class StudentServiceImpl2 implements StudentService {
 
 	@Autowired
 	StudentRepository studentRepository;
@@ -79,14 +77,12 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public String saveStudent(StudentRequest student) {
-		/*
-		 * Student st = new Student(); st.setEmailId(student.getEmailId());
-		 * st.setMobileNumber(student.getMobileNumber()); st.setName(student.getName());
-		 * st.setLongId("12345678"); st.setPassword("123456789");
-		 */
-
-		Student st = Student.builder().emailId(student.getEmailId()).mobileNumber(student.getMobileNumber())
-				.name(student.getName()).longId("12345678").password("123456789").build();
+		Student st = new Student();
+		st.setEmailId(student.getEmailId());
+		st.setMobileNumber(student.getMobileNumber());
+		st.setName(student.getName());
+		st.setLongId("12345678");
+		st.setPassword("123456789");
 
 		Student response = studentRepository.save(st);
 		if (response == null) {
